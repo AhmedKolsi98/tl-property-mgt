@@ -1,0 +1,17 @@
+# IntelliJ project settings
+.idea/
+*.iml
+
+# Build directories
+/out/
+build/
+target/
+
+# Logs and system files
+*.log
+*.tmp
+*.swp
+
+# OS-specific
+.DS_Store
+Thumbs.db
