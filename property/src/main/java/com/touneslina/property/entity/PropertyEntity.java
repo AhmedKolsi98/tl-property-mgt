@@ -26,8 +26,9 @@ public class PropertyEntity {
     @Column(nullable = false)
     private String equipmentType;
 
-    @Column(nullable = false)
-    private long idCategory;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
 
     @Column(nullable = false)
     private String source;
@@ -40,7 +41,7 @@ public class PropertyEntity {
     private Date acquisitionDate;
 
     @Enumerated(EnumType.STRING)
-    private AcquisitionValue acquisitionValue;
+    private PropertyAcquisitionValue acquisitionValue;
 
     private Date deletionDate;
 
@@ -49,6 +50,6 @@ public class PropertyEntity {
     private String deletionReason;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private PropertyStatus status;
 
 }

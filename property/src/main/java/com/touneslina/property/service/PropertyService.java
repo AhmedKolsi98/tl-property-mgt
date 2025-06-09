@@ -1,7 +1,6 @@
 package com.touneslina.property.service;
 
 import com.touneslina.property.entity.PropertyEntity;
-import com.touneslina.property.entity.Status;
 import com.touneslina.property.repository.PropertyRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static com.touneslina.property.entity.Status.DELETED;
+import static com.touneslina.property.entity.PropertyStatus.DELETED;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +16,7 @@ public class PropertyService {
     private final PropertyRepository propertyRepository;
 
     public PropertyEntity saveProperty(PropertyEntity propertyEntity) {
-        return propertyRepository.save(propertyEntity);
+        return propertyRepository.saveAndFlush(propertyEntity);
     }
 
     public List<PropertyEntity> findAllProperties() {
@@ -30,7 +29,7 @@ public class PropertyService {
             property.setReference(updatedProperty.getReference());
             property.setName(updatedProperty.getName());
             property.setEquipmentType(updatedProperty.getEquipmentType());
-            property.setIdCategory(updatedProperty.getIdCategory());
+            property.setCategory(updatedProperty.getCategory());
             property.setSource(updatedProperty.getSource());
             property.setInvoiceReference(updatedProperty.getInvoiceReference());
             property.setInventoryNumber(updatedProperty.getInventoryNumber());
@@ -41,7 +40,7 @@ public class PropertyService {
             property.setDeletionReason(updatedProperty.getDeletionReason());
             property.setStatus(updatedProperty.getStatus());
 
-            return propertyRepository.save(property);
+            return saveProperty(property);
         }
         return null;
     }
@@ -51,7 +50,7 @@ public class PropertyService {
         PropertyEntity property = propertyRepository.findById(idProperty).orElse(null);
         if (property != null) {
             property.setStatus(DELETED);
-            propertyRepository.save(property);
+            saveProperty(property);
         }
     }
 

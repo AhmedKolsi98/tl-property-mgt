@@ -1,6 +1,6 @@
 package com.touneslina.property.entity;
 
-public enum AcquisitionValue {
+public enum PropertyAcquisitionValue {
     NEW,
     USED,
     UNKNOWN

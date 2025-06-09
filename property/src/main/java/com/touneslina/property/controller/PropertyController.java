@@ -15,19 +15,19 @@ import java.util.List;
 public class PropertyController {
     private final PropertyService propertyService;
 
-    @PostMapping("/add-property")
+    @PostMapping("/add")
     public ResponseEntity<Void> addProperty(@RequestBody PropertyEntity property) {
         PropertyEntity propertyEntity = propertyService.saveProperty(property);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/all-properties")
+    @GetMapping("/all")
     public ResponseEntity<List<PropertyEntity>> findAllProperties() {
         List<PropertyEntity> properties = propertyService.findAllProperties();
         return ResponseEntity.ok(properties);
     }
 
-    @PutMapping("/update-property/{idProperty}")
+    @PutMapping("/update/{idProperty}")
     public ResponseEntity<Void> updateProperty(@RequestBody PropertyEntity property, @PathVariable long idProperty) {
         PropertyEntity propertyEntity = propertyService.updateProperty(property,idProperty);
         if (propertyEntity != null) {
@@ -36,13 +36,13 @@ public class PropertyController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/delete-property/{idProperty}")
+    @PutMapping("/delete/{idProperty}")
     public ResponseEntity<Void> deleteProperty(@PathVariable long idProperty) {
         propertyService.deleteProperty(idProperty);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/find-property/{idProperty}")
+    @GetMapping("/find/{idProperty}")
     public ResponseEntity<PropertyEntity> findPropertyById(@PathVariable long idProperty) {
         PropertyEntity property = propertyService.findPropertyById(idProperty);
         return ResponseEntity.ok(property);

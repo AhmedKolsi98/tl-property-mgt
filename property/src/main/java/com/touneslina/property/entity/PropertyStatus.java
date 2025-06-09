@@ -1,6 +1,6 @@
 package com.touneslina.property.entity;
 
-public enum Status {
+public enum PropertyStatus {
     AVAILABLE,
     UNAVAILABLE,
     DELETED,

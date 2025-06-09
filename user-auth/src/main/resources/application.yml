@@ -21,7 +21,7 @@ spring:
       password: 123456._.Samar
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
