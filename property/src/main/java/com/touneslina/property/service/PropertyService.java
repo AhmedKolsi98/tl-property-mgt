@@ -46,17 +46,18 @@ public class PropertyService {
     }
 
 
-    public void deleteProperty(long idProperty) {
+    public Boolean deleteProperty(long idProperty) {
         PropertyEntity property = propertyRepository.findById(idProperty).orElse(null);
         if (property != null) {
             property.setStatus(DELETED);
             saveProperty(property);
+            return true;
         }
+        return false;
     }
 
     public PropertyEntity findPropertyById(long idProperty) {
-        Optional<PropertyEntity> property = propertyRepository.findById(idProperty);
-        return property.orElse(null);
+        return propertyRepository.findById(idProperty).orElse(null);
     }
 
 }

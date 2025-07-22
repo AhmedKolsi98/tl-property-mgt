@@ -1,5 +1,6 @@
 package com.touneslina.property.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +24,6 @@ public class CategoryEntity {
     @Enumerated(EnumType.STRING)
     private CategoryStatus status;
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<PropertyEntity> properties;
 }

@@ -38,12 +38,14 @@ public class CategoryService {
         return null;
     }
 
-    public void deleteCategory(long idCategory){
+    public Boolean deleteCategory(long idCategory){
         CategoryEntity category = getCategoryById(idCategory);
         if(category!=null) {
             category.setStatus(DELETED);
             saveCategory(category);
+            return true;
         }
+        return false;
     }
 
 

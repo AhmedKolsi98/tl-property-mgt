@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -15,10 +16,10 @@ import java.util.List;
 public class PropertyController {
     private final PropertyService propertyService;
 
-    @PostMapping("/add")
-    public ResponseEntity<Void> addProperty(@RequestBody PropertyEntity property) {
-        PropertyEntity propertyEntity = propertyService.saveProperty(property);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<PropertyEntity> addProperty(@RequestBody PropertyEntity property) {
+        PropertyEntity createdProperty = propertyService.saveProperty(property);
+        URI location = URI.create("/api/v1/properties/"+createdProperty.getIdProperty());
+        return ResponseEntity.created(location).body(createdProperty);
     }
 
     @GetMapping("/all")
@@ -38,13 +39,19 @@ public class PropertyController {
 
     @PutMapping("/delete/{idProperty}")
     public ResponseEntity<Void> deleteProperty(@PathVariable long idProperty) {
-        propertyService.deleteProperty(idProperty);
-        return ResponseEntity.ok().build();
+        Boolean deleted = propertyService.deleteProperty(idProperty);
+        if (deleted){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/find/{idProperty}")
     public ResponseEntity<PropertyEntity> findPropertyById(@PathVariable long idProperty) {
         PropertyEntity property = propertyService.findPropertyById(idProperty);
+        if (property==null){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(property);
     }
 

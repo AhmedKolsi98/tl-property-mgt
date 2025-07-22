@@ -6,6 +6,8 @@ import com.touneslina.property.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -14,10 +16,10 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @PostMapping("/add")
-    public ResponseEntity<Void> addCategory(@RequestBody CategoryEntity category) {
+    public ResponseEntity<CategoryEntity> addCategory(@RequestBody CategoryEntity category) {
         CategoryEntity categoryEntity = categoryService.saveCategory(category);
-        return ResponseEntity.ok().build();
+        URI location = URI.create("/api/v1/categories/"+categoryEntity.getId());
+        return ResponseEntity.created(location).body(categoryEntity);
     }
 
     @GetMapping("/all")
@@ -37,13 +39,19 @@ public class CategoryController {
 
     @PutMapping("/delete/{idCategory}")
     public ResponseEntity<Void> deleteCategory(@PathVariable long idCategory) {
-        categoryService.deleteCategory(idCategory);
-        return ResponseEntity.ok().build();
+        Boolean deleted = categoryService.deleteCategory(idCategory);
+        if (deleted){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/find/{idCategory}")
     public ResponseEntity<CategoryEntity> findCategoryById(@PathVariable long idCategory) {
         CategoryEntity category = categoryService.getCategoryById(idCategory);
+        if (category==null){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(category);
     }
 
