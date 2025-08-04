@@ -1,0 +1,27 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultzone: http://localhost:8761/eureka
+
+server:
+  port: 8091
+
+spring:
+  application:
+    name: properties
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/properties
+    hikari:
+      username: postgres
+      password: 123456._.Samar
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+application:
+  config:
+    loans-url: http://localhost:8092/api/v1/loans
