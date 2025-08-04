@@ -1,12 +1,13 @@
 package com.touneslina.property.service;
 
+import com.touneslina.property.client.FullPropertyResponse;
+import com.touneslina.property.client.LoanClient;
 import com.touneslina.property.entity.PropertyEntity;
 import com.touneslina.property.repository.PropertyRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.touneslina.property.entity.PropertyStatus.DELETED;
 
@@ -14,6 +15,7 @@ import static com.touneslina.property.entity.PropertyStatus.DELETED;
 @AllArgsConstructor
 public class PropertyService {
     private final PropertyRepository propertyRepository;
+    private final LoanClient client;
 
     public PropertyEntity saveProperty(PropertyEntity propertyEntity) {
         return propertyRepository.saveAndFlush(propertyEntity);
@@ -60,4 +62,16 @@ public class PropertyService {
         return propertyRepository.findById(idProperty).orElse(null);
     }
 
+    public FullPropertyResponse findAllLoansOfProperty(long idProperty) {
+        PropertyEntity property = propertyRepository.findById(idProperty)
+                .orElse(null);
+        if (property==null)
+            return null;
+
+        var loans = client.findAllLoansByProperty(idProperty);
+        return FullPropertyResponse.builder()
+                .name(property.getName())
+                .loans(loans)
+                .build();
+    }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService categoryService;
 
+    @PostMapping("/add")
     public ResponseEntity<CategoryEntity> addCategory(@RequestBody CategoryEntity category) {
         CategoryEntity categoryEntity = categoryService.saveCategory(category);
         URI location = URI.create("/api/v1/categories/"+categoryEntity.getId());

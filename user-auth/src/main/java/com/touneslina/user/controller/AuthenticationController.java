@@ -1,5 +1,9 @@
-package com.touneslina.user.authentication;
+package com.touneslina.user.controller;
 
+import com.touneslina.user.authentication.AuthenticationRequest;
+import com.touneslina.user.authentication.AuthenticationResponse;
+import com.touneslina.user.authentication.AuthenticationService;
+import com.touneslina.user.authentication.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

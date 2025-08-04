@@ -3,7 +3,6 @@ package com.touneslina.loan.controller;
 import com.touneslina.loan.entity.LoanEntity;
 import com.touneslina.loan.service.LoanService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ public class LoanController {
 
     private final LoanService loanService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<LoanEntity> addLoan(@RequestBody LoanEntity loan) {
         LoanEntity createdLoan = loanService.addLoan(loan);
         URI location = URI.create("/api/v1/loans/" + createdLoan.getIdLoan());
@@ -37,7 +36,7 @@ public class LoanController {
 
     @GetMapping("/all")
     public ResponseEntity<List<LoanEntity>> findALl(){
-        List<LoanEntity> loans = (List<LoanEntity>) loanService.findAllLoans();
+        List<LoanEntity> loans = loanService.findAllLoans();
         return ResponseEntity.ok(loans);
     }
 
@@ -58,6 +57,11 @@ public class LoanController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(loan);
+    }
+
+    @GetMapping("/property/{idProperty}")
+    public ResponseEntity<List<LoanEntity>> findAllLoansByProperty(@PathVariable long idProperty){
+        return ResponseEntity.ok(loanService.findAllLoansByProperty(idProperty));
     }
 
 }

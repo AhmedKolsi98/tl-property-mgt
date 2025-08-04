@@ -16,6 +16,8 @@ public class LoanService {
 
     private final LoanRepository loanRepository;
 
+
+
     public LoanEntity addLoan(LoanEntity loan){
         return loanRepository.saveAndFlush(loan);
     }
@@ -49,4 +51,7 @@ public class LoanService {
         return loanRepository.findById(idLoan).orElse(null);
     }
 
+    public List<LoanEntity> findAllLoansByProperty(long idProperty) {
+        return loanRepository.findAllByPropertyId(idProperty);
+    }
 }

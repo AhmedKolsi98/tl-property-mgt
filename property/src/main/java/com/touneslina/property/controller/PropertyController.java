@@ -1,6 +1,7 @@
 package com.touneslina.property.controller;
 
 
+import com.touneslina.property.client.FullPropertyResponse;
 import com.touneslina.property.entity.PropertyEntity;
 import com.touneslina.property.service.PropertyService;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 public class PropertyController {
     private final PropertyService propertyService;
 
+    @PostMapping("/add")
     public ResponseEntity<PropertyEntity> addProperty(@RequestBody PropertyEntity property) {
         PropertyEntity createdProperty = propertyService.saveProperty(property);
         URI location = URI.create("/api/v1/properties/"+createdProperty.getIdProperty());
@@ -53,6 +55,12 @@ public class PropertyController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(property);
+    }
+
+    //This method is going to return all the loans of a specific property
+    @GetMapping("/property/{idProperty}")
+    public ResponseEntity<FullPropertyResponse> findAllLoansOfProperty(@PathVariable long idProperty) {
+        return ResponseEntity.ok(propertyService.findAllLoansOfProperty(idProperty));
     }
 
 }
