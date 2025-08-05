@@ -13,13 +13,13 @@ spring:
     name: users
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/users
+    url: ${DB_URL}
     hikari:
-      username: postgres
-      password: 123456._.Samar
+      username: ${DB_USER}
+      password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
