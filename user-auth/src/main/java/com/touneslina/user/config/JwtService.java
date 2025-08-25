@@ -18,7 +18,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY= "UHj1fZXIlm8iOXhJdKH4Av6qgd8hxRFiokzgb2wrLrE="; // minimum 256 bits for the scret key
+    private static final String SECRET_KEY= "w7rX8Zq+2qf9Jt3U6kV1H8b2l3T0pF4mQyN5vR0s1xE="; // minimum 256 bits for the scret key
 
     public String extractMail(String token) {
         return extractClaim(token, Claims::getSubject); // Claims::getSubject is a method reference as claims -> claims.getSubject()

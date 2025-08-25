@@ -2,7 +2,9 @@ package com.touneslina.property.controller;
 
 
 import com.touneslina.property.client.FullPropertyResponse;
+import com.touneslina.property.entity.CategoryEntity;
 import com.touneslina.property.entity.PropertyEntity;
+import com.touneslina.property.service.CategoryService;
 import com.touneslina.property.service.PropertyService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,18 +12,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/properties")
 public class PropertyController {
     private final PropertyService propertyService;
+    private final CategoryService categoryService;
 
     @PostMapping("/add")
     public ResponseEntity<PropertyEntity> addProperty(@RequestBody PropertyEntity property) {
-        PropertyEntity createdProperty = propertyService.saveProperty(property);
-        URI location = URI.create("/api/v1/properties/"+createdProperty.getIdProperty());
-        return ResponseEntity.created(location).body(createdProperty);
+        CategoryEntity category = categoryService.getCategoryById(property.getCategory().getId());
+        if (category!=null){
+            PropertyEntity createdProperty = propertyService.saveProperty(property);
+            URI location = URI.create("/api/v1/properties/"+createdProperty.getIdProperty());
+            return ResponseEntity.created(location).body(createdProperty);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("/all")

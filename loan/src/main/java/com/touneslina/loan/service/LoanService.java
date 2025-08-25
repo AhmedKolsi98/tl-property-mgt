@@ -17,7 +17,6 @@ public class LoanService {
     private final LoanRepository loanRepository;
 
 
-
     public LoanEntity addLoan(LoanEntity loan){
         return loanRepository.saveAndFlush(loan);
     }

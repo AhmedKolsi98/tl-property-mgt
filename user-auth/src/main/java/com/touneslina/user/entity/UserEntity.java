@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class UserEntity implements UserDetails { // or extend User from spring boot
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,8 +58,5 @@ public class UserEntity implements UserDetails { // or extend User from spring b
     public boolean isEnabled() {
         return true;
     }
-
-
-
 
 }

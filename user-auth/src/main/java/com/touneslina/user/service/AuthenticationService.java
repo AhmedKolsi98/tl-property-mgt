@@ -1,14 +1,15 @@
-package com.touneslina.user.authentication;
+package com.touneslina.user.service;
 
+import com.touneslina.user.authentication.AuthenticationRequest;
+import com.touneslina.user.authentication.AuthenticationResponse;
+import com.touneslina.user.authentication.RegisterRequest;
 import com.touneslina.user.config.JwtService;
 import com.touneslina.user.entity.Role;
 import com.touneslina.user.entity.UserEntity;
 import com.touneslina.user.repository.UserRepository;
-import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

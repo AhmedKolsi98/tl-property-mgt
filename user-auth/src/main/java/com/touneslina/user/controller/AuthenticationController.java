@@ -2,7 +2,7 @@ package com.touneslina.user.controller;
 
 import com.touneslina.user.authentication.AuthenticationRequest;
 import com.touneslina.user.authentication.AuthenticationResponse;
-import com.touneslina.user.authentication.AuthenticationService;
+import com.touneslina.user.service.AuthenticationService;
 import com.touneslina.user.authentication.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +27,5 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request) throws Exception {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
-
-
-
-
-
 
 }
